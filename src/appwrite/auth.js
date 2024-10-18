@@ -64,5 +64,4 @@ async login({ email, password }) {
   }
 }
 
-// Export an instance of AuthService as authService
 export const authService = new AuthService();
