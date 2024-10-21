@@ -1,4 +1,3 @@
-
 import conf from '../conf/conf.js';
 
 import {Client , ID , Databases , Storage, Query} from "appwrite";
@@ -9,7 +8,7 @@ export class Service{
     bucket;
 
     constructor(){
-        this.Client
+        this.client
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId);
         this.databases = new Databases(this.client);
@@ -37,6 +36,7 @@ export class Service{
         }
     }
 
+
     async updatePost( slug , {title , content , featuredImage , status } ){
         try {
             return await this.databases.updateDocument(
@@ -56,6 +56,7 @@ export class Service{
         }
     }
 
+
     async deletePost(slug){
         try {
             await this.databases.deleteDocument(
@@ -71,6 +72,7 @@ export class Service{
         }
     }
 
+
     async getPost(slug){
         try {
             return await this.databases.getDocument(
@@ -85,6 +87,7 @@ export class Service{
         }
     }
 
+
     async getPosts(queries = [Query.equal("status" , "active")]){
         try {
             return await this.databases.listDocuments(
@@ -98,8 +101,9 @@ export class Service{
         }
     }
 
-    // file upload service 
 
+    // file upload service 
+    
     async uploadFile(file){
         try {
             return await this.bucket.createFile(
@@ -112,6 +116,7 @@ export class Service{
             return false;
         }
     }
+
 
     async deleteFile(){
         try {
@@ -126,16 +131,15 @@ export class Service{
         }
     }
 
+
     getFilePreview(fileId){
         return this.bucket.getFileView(
             conf.appwriteBucketId,
             fileId
         )
     }
-
-    
-
 }
 
 const service = new Service()
+
 export default service

@@ -1,3 +1,4 @@
+
 import React, { useId } from 'react'
 
 function Select({
@@ -21,10 +22,12 @@ function Select({
                     {option}
                 </option>
             })}
-
         </select>   
     </div>
-  )
+  );
 }
 
-export default React.forwardRef(select);
+export default React.forwardRef(Select);
+
+
+

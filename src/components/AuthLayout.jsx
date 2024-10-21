@@ -9,17 +9,6 @@ export default function Protected({children, authentication = true}) {
     const authStatus = useSelector(state => state.auth.status)
 
     useEffect(() => {
-        
-        //TODO: make it more easy to understand
-
-        // if (authStatus ===true){
-        //     navigate("/")
-        // } else if (authStatus === false) {
-        //     navigate("/login")
-        // }
-        
-        //let authValue = authStatus === true ? true : false
-
         if(authentication && authStatus !== authentication){
             navigate("/login")
         } else if(!authentication && authStatus !== authentication){
@@ -30,3 +19,19 @@ export default function Protected({children, authentication = true}) {
 
   return loader ? <h1>Loading...</h1> : <>{children}</>
 }
+
+
+// if in other form 
+/*
+if (authentication) {
+    // User is expected to be authenticated, but the status is false
+    if (authStatus !== authentication) {
+        navigate("/login");
+    }
+} else {
+    // User is not expected to be authenticated, but the status is true
+    if (authStatus !== authentication) {
+        navigate("/");
+    }
+}
+    */

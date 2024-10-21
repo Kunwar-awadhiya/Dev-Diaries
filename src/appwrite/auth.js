@@ -11,6 +11,7 @@ class AuthService {
     this.account = new Account(this.Client);
   }
 
+  
   async createAccount({ email, password, name }) {
     try {
       const userAccount = await this.account.create(ID.unique(), email, password, name);
@@ -24,7 +25,6 @@ class AuthService {
     }
   }
 
-
   
 async login({ email, password }) {
     try {
@@ -36,8 +36,6 @@ async login({ email, password }) {
         throw error;
     }
 }
-
-
 
 
  async getCurrentUser() {
@@ -54,7 +52,6 @@ async login({ email, password }) {
  }
 
 
- 
   async logout() {
     try {
       await this.account.deleteSessions();
@@ -64,4 +61,7 @@ async login({ email, password }) {
   }
 }
 
-export const authService = new AuthService();
+
+const authService = new AuthService();
+
+export default authService;
