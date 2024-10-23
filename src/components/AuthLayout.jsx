@@ -20,18 +20,3 @@ export default function Protected({children, authentication = true}) {
   return loader ? <h1>Loading...</h1> : <>{children}</>
 }
 
-
-// if in other form 
-/*
-if (authentication) {
-    // User is expected to be authenticated, but the status is false
-    if (authStatus !== authentication) {
-        navigate("/login");
-    }
-} else {
-    // User is not expected to be authenticated, but the status is true
-    if (authStatus !== authentication) {
-        navigate("/");
-    }
-}
-    */
