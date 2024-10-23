@@ -1,3 +1,4 @@
+
 import React from 'react'
 
 const Logo = ({width = "100px "}) => {
@@ -9,4 +10,3 @@ const Logo = ({width = "100px "}) => {
 }
 
 export default Logo
-Logo 

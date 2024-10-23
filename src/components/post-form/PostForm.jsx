@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 
-function PostForm(post) {
+export default function PostForm({post}) {
     const {register , handleSubmit , watch , setValue , control , getValues} = useForm({
         defaultValues : {
             title : post?.title || '',
@@ -15,22 +15,23 @@ function PostForm(post) {
             status : post?.status || 'active',
 
         },
-    })
+    });
 
     const navigate = useNavigate()
-    const userData = useSelector(state =>state.user.userData)
+    const userData = useSelector((state) =>state.user.userData);
 
     const submit = async(data) => {
         if(post){
-           const file =  data.image[0]? appwriteService.uploadFile(data.image[0]) : null
+           const file =  data.image[0]? await appwriteService.uploadFile(data.image[0]) : null;
 
            if (file) {
-              appwriteService.deleteFile(post.featuredImage)
+              appwriteService.deleteFile(post.featuredImage);
            }
            const dbPost = await appwriteService.updatePost(post.$id,{
             ...data,
             featuredImage: file? file.$id : undefined ,
-           })
+           });
+
             if (dbPost) {
                 navigate(`/post/${dbPost.div}`)
             }
@@ -51,7 +52,7 @@ function PostForm(post) {
             }
 
         }
-    }
+    };
 
     const slugTransform = useCallback((value) => {
         if (value && typeof value === 'string') {
@@ -62,21 +63,21 @@ function PostForm(post) {
             .replace(/\s/g, "-");
         }
         return "";
-    } ,[])
+    } ,[]);
 
     React.useEffect(() => {
-        const subscription = watch( (value , name) => {
+        const subscription = watch((value , {name}) => {
             if (name === 'title') {
                 setValue('slug' , slugTransform(value.title,
                     {shouldValidate : true}
-                ))
+                ));
             }
-        })
+        });
 
         return () => {
             subscription.unsubscribe()
         }
-    },[watch , slugTransform , setValue])
+    },[watch , slugTransform , setValue]);
 
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
@@ -128,5 +129,3 @@ function PostForm(post) {
 </form>
   )
 }
-
-export default PostForm

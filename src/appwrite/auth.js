@@ -2,12 +2,14 @@
 import conf from "../conf/conf.js";
 import { Client, Account, ID } from "appwrite";
 
-class AuthService {
+export class AuthService {
   Client = new Client();
   account;
 
   constructor() {
-    this.Client.setEndpoint(conf.appwriteUrl).setProject(conf.appwriteProjectId);
+    this.Client
+    .setEndpoint(conf.appwriteUrl)
+    .setProject(conf.appwriteProjectId);
     this.account = new Account(this.Client);
   }
 
@@ -25,7 +27,15 @@ class AuthService {
     }
   }
 
-  
+  async login({email, password}) {
+    try {
+        return await this.account.createEmailSession(email, password);
+    } catch (error) {
+        throw error;
+    }
+}
+
+/*  
 async login({ email, password }) {
     try {
         const session = await this.account.createEmailPasswordSession(email, password);
@@ -50,7 +60,17 @@ async login({ email, password }) {
         return null;
     }
  }
+*/
 
+async getCurrentUser() {
+  try {
+      return await this.account.get();
+  } catch (error) {
+      console.log("Appwrite service :: getCurrentUser :: error", error);
+  }
+
+  return null;
+}
 
   async logout() {
     try {

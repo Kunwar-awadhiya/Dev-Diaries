@@ -19,7 +19,7 @@ export class Service{
 
     async createPost({title , slug , content , featuredImage , status , userId}) {
         try {
-            return await this.database.createDocument(
+            return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 slug,
@@ -118,13 +118,13 @@ export class Service{
     }
 
 
-    async deleteFile(){
+    async deleteFile(fileId){
         try {
             await this.bucket.deleteFile(
                 conf.appwriteBucketId,
                 fileId,
             )
-            return true;
+            return true
         } catch (error) {
             console.log("Appwrite service :: deleteFile :: error" , error);
             return false;
@@ -133,7 +133,7 @@ export class Service{
 
 
     getFilePreview(fileId){
-        return this.bucket.getFileView(
+        return this.bucket.getFilePreview(
             conf.appwriteBucketId,
             fileId
         )
@@ -141,5 +141,4 @@ export class Service{
 }
 
 const service = new Service()
-
 export default service

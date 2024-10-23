@@ -24,7 +24,7 @@ function Select({
             })}
         </select>   
     </div>
-  );
+  )
 }
 
 export default React.forwardRef(Select);
