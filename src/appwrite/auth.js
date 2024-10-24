@@ -27,6 +27,7 @@ export class AuthService {
     }
   }
 
+/*
   async login({email, password}) {
     try {
         return await this.account.createEmailSession(email, password);
@@ -34,8 +35,8 @@ export class AuthService {
         throw error;
     }
 }
+*/
 
-/*  
 async login({ email, password }) {
     try {
         const session = await this.account.createEmailPasswordSession(email, password);
@@ -46,7 +47,7 @@ async login({ email, password }) {
         throw error;
     }
 }
-
+/*
 
  async getCurrentUser() {
     try {
